@@ -1,0 +1,34 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+# Load the dataset
+url = "https://raw.githubusercontent.com/selva86/datasets/master/BostonHousing.csv"
+boston_df = pd.read_csv(url)
+
+# Display the first few rows
+print(boston_df.head(20))
+
+# Define X (feature: RM) and Y (target: MEDV)
+X = boston_df[['rm']]  # Feature: Number of rooms
+Y = boston_df['medv']  # Target: Median value of homes
+
+# Create a linear regression model
+model = LinearRegression()
+model.fit(X, Y)
+
+# Predict Y values
+Y_pred = model.predict(X)
+
+# Plotting
+plt.figure(figsize=(10, 8))
+plt.scatter(X, Y, color="blue", label="Actual Data")
+plt.plot(X, Y_pred, color="red", label="Regression Line")
+plt.title("Linear Regression: Number of Rooms vs Median Home Value")
+plt.xlabel("Average Number of Rooms (RM)")
+plt.ylabel("Median Value of Homes (MEDV in $1000s)")
+plt.legend()
+plt.grid(True, linewidth=2)
+plt.show()
+
